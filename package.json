@@ -2,7 +2,6 @@
   "name": "calculator-sample",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
   "scripts": {
     "angular:build": "angular_build",
     "angular:server": "cd angular && ng s calculator-sample",
