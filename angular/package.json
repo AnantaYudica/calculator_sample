@@ -1,8 +1,7 @@
 {
-  "name": "calculator-sample",
+  "name": "calculator-sample-angular",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
