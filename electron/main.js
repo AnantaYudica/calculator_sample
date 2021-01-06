@@ -1,6 +1,4 @@
 const { app, BrowserWindow } = require('electron')
-const url = require("url");
-const path = require("path");
 
 function createWindow () {
   const win = new BrowserWindow({
@@ -11,12 +9,7 @@ function createWindow () {
     }
   })
 
-  win.loadURL(
-    url.format({
-      pathname: path.join(__dirname, `../.build/dist/index.html`),
-      protocol: "file:",
-      slashes: true
-    }))
+  win.loadFile(`./dist/index.html`)
 }
 
 app.whenReady().then(createWindow)
