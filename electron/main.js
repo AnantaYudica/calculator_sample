@@ -26,6 +26,16 @@ app.on('activate', () => {
   }
 })
 
-const addon = require('./build/Release/addon');
+const hello = require('./build/Release/hello');
+const calculator = require('./build/Release/calculator-intf');
 
-console.log(addon.hello());
+console.log(hello.hello())
+console.log(calculator)
+
+calculator.initialization(
+  function(){
+    console.log(arguments[0])
+})
+console.log("init")
+
+calculator.input("1");
