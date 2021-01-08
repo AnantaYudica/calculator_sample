@@ -2,5 +2,5 @@
 basedir=$(pwd)
 echo $basedir
 cd "../angular"
-command ./node_modules/.bin/ng b calculator-sample --output-path "$basedir/dist" --base-href "$basedir/dist"
+command ./node_modules/.bin/ng b calculator-sample --output-path "$basedir/dist" --base-href "$basedir/dist/"
 cd "$basedir"
