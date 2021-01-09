@@ -8,7 +8,7 @@
     "node-gyp:clean": "node-gyp clean",
     "node-gyp:build": "node-gyp build",
     "node-gyp:rebuild": "node-gyp rebuild",
-    "angular:build": "./angular_build",
+    "angular-build": "node ./angular_build.js",
     "electron-rebuild": "electron-rebuild .",
     "electron": "electron .",
     "start": "electron .",
