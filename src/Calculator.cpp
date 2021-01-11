@@ -21,6 +21,22 @@ Calculator::Calculator() :
 Calculator::~Calculator()
 {}
 
+void Calculator::UpdateValue(const int& num)
+{
+    m_ndigit++;
+    if (!m_comma)
+    {
+        m_int = (num + (m_int * 10));
+        m_int_ndigit++;
+    }
+    else
+    {
+        m_fraction = (num+ (m_fraction * 10));
+        m_fraction_ndigit++;
+    }
+    m_update = true;
+}
+
 void Calculator::Key(char ch)
 {
     std::cout << "ch : " << ch << std::endl;
