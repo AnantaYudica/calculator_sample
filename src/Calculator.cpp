@@ -123,7 +123,7 @@ std::string Calculator::Print()
     }
     std::string res = std::to_string(m_int);
     std::string fraction_str = std::to_string(m_fraction);
-    res += ",";
+    res += ".";
     std::cout << "res " << res << std::endl;
     if (m_fraction_ndigit != 0)
     {
