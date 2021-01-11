@@ -86,10 +86,12 @@ bool CalculatorIntf::CreateThread(Napi::Env env,
             std::cout << "thread run!" << std::endl;
             while(m_run)
             {
-                std::string * str = new std::string(m_calc.Print());
-                napi_status status = m_th_safe.BlockingCall(str, cb);
-
-                std::this_thread::sleep_for(std::chrono::seconds(1));
+                if (m_calc.IsUpdate())
+                {
+                    std::string * str = new std::string(m_calc.Print());
+                    napi_status status = m_th_safe.BlockingCall(str, cb);
+                }
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
             }
             std::cout << "thread end!" << std::endl;
             m_th_safe.Release();
