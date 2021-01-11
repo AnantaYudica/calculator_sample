@@ -1,6 +1,7 @@
 #include "Calculator.h"
 
 #include <iostream>
+#include <algorithm>
 
 Calculator::Calculator() :
     m_update(false),
@@ -65,5 +66,26 @@ void Calculator::Key(char ch)
 
 std::string Calculator::Print()
 {
-    return "0";
+    m_update = false;
+    if (!m_comma)
+    {
+        auto res = std::to_string(m_int);
+        std::reverse(res.begin(), res.end());
+        return res;
+    }
+    std::string res = std::to_string(m_int);
+    std::string fraction_str = std::to_string(m_fraction);
+    res += ",";
+    std::cout << "res " << res << std::endl;
+    if (m_fraction_ndigit != 0)
+    {
+        const auto size = m_fraction_ndigit - fraction_str.size();
+        for (std::size_t i = 0; i < size; ++i)
+        {
+            res += "0";
+        }
+        res += fraction_str;
+    }
+    std::reverse(res.begin(), res.end());
+    return res;
 }
