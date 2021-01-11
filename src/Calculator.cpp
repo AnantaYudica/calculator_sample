@@ -61,7 +61,55 @@ bool Calculator::IsUpdate() const
 
 void Calculator::Key(char ch)
 {
-    std::cout << "ch : " << ch << std::endl;
+    std::cout << "ch : " << ch << std::endl;switch (ch)
+    {
+    case '0':
+        UpdateValue(0);
+        break;
+    case '1':
+        UpdateValue(1);
+        break;
+    case '2':
+        UpdateValue(2);
+        break;
+    case '3':
+        UpdateValue(3);
+        break;
+    case '4':
+        UpdateValue(4);
+        break;
+    case '5':
+        UpdateValue(5);
+        break;
+    case '6':
+        UpdateValue(6);
+        break;
+    case '7':
+        UpdateValue(7);
+        break;
+    case '8':
+        UpdateValue(8);
+        break;
+    case '9':
+        UpdateValue(9);
+        break;
+    case '.':
+        m_comma = true;
+        m_update = true;
+        break;
+    case '+':
+        break;
+    case '-':
+        break;
+    case '*':
+        break;
+    case '/':
+        break;
+    case '=':
+        break;
+    default:
+        break;
+    }
 }
 
 std::string Calculator::Print()
