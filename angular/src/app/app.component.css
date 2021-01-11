@@ -1,0 +1,11 @@
+.output
+{
+    direction: rtl;
+    unicode-bidi: bidi-override;
+}
+
+button
+{
+    width: 100%;
+    height: 100%;
+}
