@@ -53,6 +53,11 @@ void Calculator::SetValue()
     m_update = true;
 }
 
+bool Calculator::IsUpdate() const
+{
+    return m_update.load();
+}
+
 void Calculator::Key(char ch)
 {
     std::cout << "ch : " << ch << std::endl;
