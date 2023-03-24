@@ -9,8 +9,6 @@
     }
     var Module = {
       onRuntimeInitialized: function() {
-        Module.Key("123");
-        console.log(Module.Print());
         KeyFun = function(key)
         {
           Module.Key("" + key);
@@ -83,16 +81,5 @@
     </div>
   </div>
 </div>
-<script>
-
-    // WebAssembly.compileStreaming(fetch("calculatorBind.wasm"))
-    //   .then(module => {
-    //     const imports = WebAssembly.Module.imports(module);
-    //     console.log(imports[0]);
-    //     console.log(imports)
-    //     console.log(imports["Calculator"]);
-    // });
-
-</script>
 </body>
 </html>
