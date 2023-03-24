@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    var Calculator = undefined
+    var KeyFun = function(elem)
+    {
+
+    }
+    var Module = {
+      onRuntimeInitialized: function() {
+        Module.Key("123");
+        console.log(Module.Print());
+        KeyFun = function(key)
+        {
+          Module.Key("" + key);
+          var input = document.getElementById("print-text");
+          input.value = Module.Print()
+        }
+      }
+    };
+  </script>
+  <script src="calculatorBind.js"></script>
+  <style>
+    #frame
+    {
+      width : 100%;
+      height: 100%;
+      position:fixed;
+    }
+    #row1
+    {
+      width : 100%;
+      height: 10%;
+      position:relative;
+    }
+    #print-text
+    {
+      width : 90%;
+      height: 20%;
+      position:relative;
+      text-align:right;
+    }
+    #numpad
+    {
+      width : 90%;
+      height: 50%;
+      position:relative;
+    }
+    #numpad button
+    {
+      width : 30%;
+      height: 100%;
+    }
+    #numpad .row
+    {
+      height: 25%;
+    }
+  </style>
+</head>
+<body>
+<div id="frame">
+  <h1 id="row1">Calculator</h1>
+  <input type="text" id="print-text" readonly>
+  <div id="numpad">
+    <div class="row">
+      <button onclick="KeyFun(7)">7</button>
+      <button onclick="KeyFun(8)">8</button>
+      <button onclick="KeyFun(9)">9</button>
+    </div>
+    <div class="row">      
+      <button onclick="KeyFun(4)">4</button>
+      <button onclick="KeyFun(5)">5</button>
+      <button onclick="KeyFun(6)">6</button>
+    </div>
+    <div class="row">
+      <button onclick="KeyFun(1)">1</button>
+      <button onclick="KeyFun(2)">2</button>
+      <button onclick="KeyFun(3)">3</button>
+    </div>
+    <div class="row">
+      <button onclick="KeyFun(0)">0</button>
+    </div>
+  </div>
+</div>
+<script>
+
+    // WebAssembly.compileStreaming(fetch("calculatorBind.wasm"))
+    //   .then(module => {
+    //     const imports = WebAssembly.Module.imports(module);
+    //     console.log(imports[0]);
+    //     console.log(imports)
+    //     console.log(imports["Calculator"]);
+    // });
+
+</script>
+</body>
+</html>
