@@ -4,11 +4,17 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.example.app</groupId>
-  <artifactId>calculator-app</artifactId>
+  <groupId>com.example.calculator</groupId>
+  <artifactId>calculator</artifactId>
   <version>0.0.1</version>
 
-  <name>calculator-app</name>
+  <packaging>pom</packaging>
+
+  <name>calculator</name>
+  
+  <modules>
+    <module>calculator_lib</module>
+  </modules>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
