@@ -1,0 +1,146 @@
+<project>
+
+  <parent>
+    <groupId>com.example.calculator</groupId>
+    <artifactId>calculator_jni</artifactId>
+    <version>0.0.1</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>calculator_jni_win32</artifactId>
+
+  <name>calculator jni win32</name>
+
+  <packaging>dll</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.example.calculator</groupId>
+      <artifactId>calculator_app</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.example.calculator</groupId>
+      <artifactId>calculator_lib_win32</artifactId>
+      <type>lib</type>
+      <version>0.0.1</version>
+    </dependency>
+  </dependencies>
+
+
+  <build>
+
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <version>1.0-alpha-9</version>
+        <extensions>true</extensions>
+        <configuration>
+          <workingDirectory>${project.build.directory}</workingDirectory>
+
+          <!--  trigger javah -->
+          <javahOS>win32</javahOS>
+          <javahOutputDirectory>${project.build.directory}/custom-javah</javahOutputDirectory>
+          <!-- demonstrate we can override location of javah generate directory and use javah -o
+          option instead" -->
+          <javahOutputFileName>Calculator_jni.h</javahOutputFileName>
+          <javahClassNames>
+            <javahClassName>com.example.app.Calculator</javahClassName>
+          </javahClassNames>
+
+          <!--  compiler configuration -->
+          <compilerProvider>msvc</compilerProvider>
+          <envFactoryName>${msvc.env.factory}</envFactoryName>
+          <sources>
+            <source>
+              <directory>../src/</directory>
+              <fileNames>
+                <fileName>Calculator_jni.cpp</fileName>
+              </fileNames>
+            </source>
+            <source>
+              <directory>${basedir}/../../../include</directory>
+            </source>
+          </sources>
+          <compilerStartOptions>
+            <compilerStartOption>${compiler.debug.options}</compilerStartOption>
+            <compilerStartOption>/W4 -O</compilerStartOption>
+          </compilerStartOptions>
+
+          <!-- deploy the accompany .lib file as well -->
+          <!-- <linkerSecondaryOutputExtensions>lib</linkerSecondaryOutputExtensions > -->
+
+          <!--  linker configuration -->
+          <classifier>${classifier}</classifier>
+          <linkerFinalName>calculator_jni</linkerFinalName>
+          <linkerStartOptions>
+            <linkerStartOption>${linker.debug.options}</linkerStartOption>
+            <linkerStartOption> /INCREMENTAL:NO /DLL oldnames.lib kernel32.lib </linkerStartOption>
+          </linkerStartOptions>
+
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.0.2</version>
+        <executions>
+          <execution>
+            <id>copy build</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/../../build</outputDirectory>
+              <overwrite>true</overwrite>
+              <resources>
+                <resource>
+                  <directory>${basedir}/target</directory>
+                  <includes>
+                    <include>**/*.dll</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+
+      </plugin>
+    </plugins>
+
+  </build>
+
+  <profiles>
+
+    <!-- to build debug artifact, run maven install -Ddebug -->
+    <profile>
+      <id>debug</id>
+      <activation>
+        <property>
+          <name>debug</name>
+        </property>
+      </activation>
+      <properties>
+        <compiler.debug.options>-MDd</compiler.debug.options>
+        <linker.debug.options>/DEBUG</linker.debug.options>
+        <classifier>debug</classifier>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>release</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <compiler.debug.options>-MD</compiler.debug.options>
+        <linker.debug.options></linker.debug.options>
+        <classifier></classifier>
+      </properties>
+    </profile>
+
+  </profiles>
+
+</project>
