@@ -1,63 +1,91 @@
 <project>
+  <parent>
+    <groupId>com.example.calculator</groupId>
+    <artifactId>calculator_lib</artifactId>
+    <version>0.0.1</version>
+  </parent>
 
-    <parent>
-        <groupId>com.example.calculator</groupId>
-        <artifactId>calculator_lib</artifactId>
-        <version>0.0.1</version>
-    </parent>
+  <modelVersion>4.0.0</modelVersion>
 
-    <modelVersion>4.0.0</modelVersion>
+  <artifactId>calculator_lib_win32</artifactId>
 
-    <artifactId>calculator_lib_win32</artifactId>
+  <name>calculator lib win32</name>
 
-    <name>calculator lib win32</name>
+  <packaging>lib</packaging>
 
-    <packaging>lib</packaging>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <version>1.0-alpha-9</version>
+        <extensions>true</extensions>
+        <configuration>
+          <workingDirectory>${project.build.directory}</workingDirectory>
 
-    <build>
+          <!--  compiler configuration -->
+          <compilerProvider>msvc</compilerProvider>
+          <envFactoryName>${msvc.env.factory}</envFactoryName>
+          <sources>
+            <source>
+              <directory>${basedir}/../../../src</directory>
+              <fileNames>
+                <fileName>Calculator.cpp</fileName>
+              </fileNames>
+            </source>
+            <source>
+              <directory>${basedir}/../../../include</directory>
+            </source>
+          </sources>
 
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>native-maven-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                <workingDirectory>${project.build.directory}</workingDirectory>
+          <compilerStartOptions>
+            <compilerStartOption>${compiler.debug.options}</compilerStartOption>
+            <compilerStartOption>/W4 /c /Fe -O</compilerStartOption>
+          </compilerStartOptions>
 
-                <!--  compiler configuration -->
-                <compilerProvider>msvc</compilerProvider>
-                <envFactoryName>${msvc.env.factory}</envFactoryName>
-                <sources>
-                    <source>
-                    <directory>${basedir}/../../../src</directory>
-                    <fileNames>
-                        <fileName>Calculator.cpp</fileName>
-                    </fileNames>
-                    </source>
-                    <source>
-                    <directory>${basedir}/../../../include</directory>
-                    </source>   
-                </sources>
+          <classifier>${classifier}</classifier>
+          <linkerExecutable>lib.exe</linkerExecutable>
+          <linkerStartOptions>
+            <linkerStartOption>${linker.debug.options}</linkerStartOption>
+            <linkerStartOption> /INCREMENTAL:NO </linkerStartOption>
+          </linkerStartOptions>
 
-                <compilerStartOptions>
-                    <compilerStartOption>${compiler.debug.options}</compilerStartOption>
-                    <compilerStartOption>/W4 /c /Fe -O</compilerStartOption>
-                </compilerStartOptions>
+        </configuration>
 
+      </plugin>
+    </plugins>
 
-                <!--  linker configuration -->
-                <classifier>${classifier}</classifier>
-                <linkerExecutable>lib.exe</linkerExecutable>
-                <linkerStartOptions>
-                    <linkerStartOption>${linker.debug.options}</linkerStartOption>
-                    <linkerStartOption> /INCREMENTAL:NO  </linkerStartOption>
-                </linkerStartOptions>
+  </build>
 
-                </configuration>
+  <profiles>
 
-            </plugin>
-        </plugins>
+    <!-- to build debug artifact, run maven install -Ddebug -->
+    <profile>
+      <id>debug</id>
+      <activation>
+        <property>
+          <name>debug</name>
+        </property>
+      </activation>
+      <properties>
+        <compiler.debug.options>-MDd</compiler.debug.options>
+        <linker.debug.options>/DEBUG</linker.debug.options>
+        <classifier>debug</classifier>
+      </properties>
+    </profile>
 
-    </build>
+    <profile>
+      <id>release</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <compiler.debug.options>-MD</compiler.debug.options>
+        <linker.debug.options></linker.debug.options>
+        <classifier></classifier>
+      </properties>
+    </profile>
+
+  </profiles>
 
 </project>
