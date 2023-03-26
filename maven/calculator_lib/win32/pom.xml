@@ -1,0 +1,63 @@
+<project>
+
+    <parent>
+        <groupId>com.example.calculator</groupId>
+        <artifactId>calculator_lib</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>calculator_lib_win32</artifactId>
+
+    <name>calculator lib win32</name>
+
+    <packaging>lib</packaging>
+
+    <build>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                <workingDirectory>${project.build.directory}</workingDirectory>
+
+                <!--  compiler configuration -->
+                <compilerProvider>msvc</compilerProvider>
+                <envFactoryName>${msvc.env.factory}</envFactoryName>
+                <sources>
+                    <source>
+                    <directory>${basedir}/../../../src</directory>
+                    <fileNames>
+                        <fileName>Calculator.cpp</fileName>
+                    </fileNames>
+                    </source>
+                    <source>
+                    <directory>${basedir}/../../../include</directory>
+                    </source>   
+                </sources>
+
+                <compilerStartOptions>
+                    <compilerStartOption>${compiler.debug.options}</compilerStartOption>
+                    <compilerStartOption>/W4 /c /Fe -O</compilerStartOption>
+                </compilerStartOptions>
+
+
+                <!--  linker configuration -->
+                <classifier>${classifier}</classifier>
+                <linkerExecutable>lib.exe</linkerExecutable>
+                <linkerStartOptions>
+                    <linkerStartOption>${linker.debug.options}</linkerStartOption>
+                    <linkerStartOption> /INCREMENTAL:NO  </linkerStartOption>
+                </linkerStartOptions>
+
+                </configuration>
+
+            </plugin>
+        </plugins>
+
+    </build>
+
+</project>
